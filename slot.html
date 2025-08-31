@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Мини слот</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    #slot {
+      font-size: 72px;
+      margin-bottom: 20px;
+    }
+    #balance {
+      font-size: 24px;
+      margin-top: 20px;
+    }
+    button {
+      font-size: 24px;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="slot">🍒 🍋 🍉</div>
+  <button id="spin">Крутить</button>
+  <div id="balance">Баланс: 10000</div>
+
+  <script>
+    const symbols = ['🍒', '🍋', '🍉', '⭐', '7️⃣'];
+    let balance = 10000;
+    const spinCost = 10;
+    const winAmount = 99;
+
+    function getRandomSymbol() {
+      return symbols[Math.floor(Math.random() * symbols.length)];
+    }
+
+    document.getElementById('spin').onclick = () => {
+      if (balance < spinCost) {
+        alert('У вас недостаточно баланса для ставки!');
+        return;
+      }
+
+      balance -= spinCost;
+
+      const reel1 = getRandomSymbol();
+      const reel2 = getRandomSymbol();
+      const reel3 = getRandomSymbol();
+
+      document.getElementById('slot').textContent = ${reel1} ${reel2} ${reel3};
+
+      if (reel1 === reel2 && reel2 === reel3) {
+        balance += winAmount;
+        alert('Поздравляем! Вы выиграли!');
+      }
+
+      document.getElementById('balance').textContent = Баланс: ${balance};
+    };
+  </script>
+
+</body>
+</html>
